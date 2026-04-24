@@ -26,7 +26,7 @@ function initCharts() {
   createComparativeLine();
 }
 
-// Figure II.1 — Line Chart: Annual deforestation 2001-2025
+// Figure 1 — Pictorial Tree Chart: Annual deforestation 2001-2025
 function createLineChart() {
   const ctx = document.getElementById('chartLine');
   if (!ctx) return;
@@ -37,27 +37,90 @@ function createLineChart() {
     520,840,580,620,930,680,480,440,400,320,
     260,250,280,261.575,433.751
   ];
+
+  // Custom Plugin to draw trees instead of bars
+  const treePlugin = {
+    id: 'treePlugin',
+    afterDatasetsDraw(chart) {
+      const { ctx, data: chartData, chartArea: { bottom, width } } = chart;
+      ctx.save();
+      
+      const meta = chart.getDatasetMeta(0);
+      const treeWidth = (width / chartData.labels.length) * 0.8;
+      
+      meta.data.forEach((datapoint, index) => {
+        const xPos = datapoint.x;
+        const yPos = datapoint.y;
+        const treeHeight = bottom - yPos;
+        
+        // Color: Red for 2025, Orange for 2016 peak, Green for rest
+        ctx.fillStyle = index === 24 ? COLORS.red : index === 14 ? COLORS.orange : COLORS.bright;
+        
+        const leafR = treeHeight * 0.35;
+        const trunkH = treeHeight * 0.65;
+        const canopyCenterY = bottom - trunkH;
+        const trunkW = treeWidth * 0.15;
+
+        // Draw trunk (tapered)
+        ctx.beginPath();
+        ctx.moveTo(xPos - trunkW/2, bottom);
+        ctx.lineTo(xPos + trunkW/2, bottom);
+        ctx.lineTo(xPos + trunkW/3, canopyCenterY);
+        ctx.lineTo(xPos - trunkW/3, canopyCenterY);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Draw Palm Fronds (Sawit Leaves)
+        ctx.beginPath();
+        
+        // Top frond
+        ctx.moveTo(xPos, canopyCenterY);
+        ctx.quadraticCurveTo(xPos - leafR*0.4, canopyCenterY - leafR*0.8, xPos, canopyCenterY - leafR);
+        ctx.quadraticCurveTo(xPos + leafR*0.4, canopyCenterY - leafR*0.8, xPos, canopyCenterY);
+        
+        // Mid-left frond
+        ctx.moveTo(xPos, canopyCenterY);
+        ctx.quadraticCurveTo(xPos - leafR*0.8, canopyCenterY - leafR*0.6, xPos - leafR*0.8, canopyCenterY - leafR*0.2);
+        ctx.quadraticCurveTo(xPos - leafR*0.3, canopyCenterY - leafR*0.4, xPos, canopyCenterY);
+
+        // Mid-right frond
+        ctx.moveTo(xPos, canopyCenterY);
+        ctx.quadraticCurveTo(xPos + leafR*0.8, canopyCenterY - leafR*0.6, xPos + leafR*0.8, canopyCenterY - leafR*0.2);
+        ctx.quadraticCurveTo(xPos + leafR*0.3, canopyCenterY - leafR*0.4, xPos, canopyCenterY);
+
+        // Bottom-left frond (drooping)
+        ctx.moveTo(xPos, canopyCenterY);
+        ctx.quadraticCurveTo(xPos - leafR*1.1, canopyCenterY - leafR*0.1, xPos - leafR, canopyCenterY + leafR*0.4);
+        ctx.quadraticCurveTo(xPos - leafR*0.3, canopyCenterY + leafR*0.1, xPos, canopyCenterY);
+        
+        // Bottom-right frond (drooping)
+        ctx.moveTo(xPos, canopyCenterY);
+        ctx.quadraticCurveTo(xPos + leafR*1.1, canopyCenterY - leafR*0.1, xPos + leafR, canopyCenterY + leafR*0.4);
+        ctx.quadraticCurveTo(xPos + leafR*0.3, canopyCenterY + leafR*0.1, xPos, canopyCenterY);
+
+        ctx.fill();
+      });
+      ctx.restore();
+    }
+  };
+
   new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
+    plugins: [treePlugin],
     data: {
       labels: years,
       datasets: [{
         label: 'Primary Forest Loss (thousand ha)',
         data: data,
-        borderColor: COLORS.bright,
-        backgroundColor: 'rgba(107,191,94,0.1)',
-        fill: true,
-        tension: 0.3,
-        pointRadius: (c) => c.dataIndex === 24 ? 8 : c.dataIndex === 14 ? 6 : 3,
-        pointBackgroundColor: (c) => c.dataIndex === 24 ? COLORS.red : c.dataIndex === 14 ? COLORS.orange : COLORS.bright,
-        pointBorderColor: (c) => c.dataIndex === 24 ? COLORS.red : COLORS.bright,
-        borderWidth: 2,
+        backgroundColor: 'rgba(0,0,0,0)', // Hide default bars
+        borderColor: 'rgba(0,0,0,0)',
+        borderWidth: 0,
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { display: true, position: 'top' },
+        legend: { display: false },
         tooltip: {
           callbacks: {
             label: (c) => `${c.parsed.y.toLocaleString()} thousand hectares`
@@ -65,8 +128,8 @@ function createLineChart() {
         }
       },
       scales: {
-        y: { beginAtZero: true, title: { display: true, text: 'Thousand Hectares' } },
-        x: { title: { display: true, text: 'Year' } }
+        y: { beginAtZero: true, title: { display: true, text: 'Thousand Hectares' }, grid: { color: COLORS.gridLine } },
+        x: { title: { display: true, text: 'Year' }, grid: { display: false } }
       }
     }
   });

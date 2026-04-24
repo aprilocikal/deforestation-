@@ -549,6 +549,61 @@ body {
 }
 
 
+/* ===== ISLAND HIGHLIGHTS ===== */
+.island-highlight-container {
+  display: flex; gap: 3rem; margin: 3rem 0; align-items: center;
+}
+.island-highlight-text {
+  flex: 0 0 30%;
+}
+.view-data-link {
+  display: inline-block; margin-top: 1rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;
+  color: var(--forest-light); text-decoration: none;
+  letter-spacing: 1px; transition: 0.3s;
+}
+.view-data-link:hover { color: var(--accent-orange); }
+
+.island-cards-wrap {
+  flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+}
+.island-card {
+  background: #fdfdfd;
+  border-radius: 12px; padding: 1.5rem 1rem; text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4); transition: transform 0.3s ease;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  border-top: 4px solid var(--forest-mid);
+}
+.island-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+.island-map-img {
+  width: 100%; height: 120px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center;
+}
+.island-map-img img {
+  max-width: 80%; max-height: 100%; object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+.island-score {
+  font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800;
+  color: #1a3a2a; line-height: 1; margin-bottom: 5px;
+}
+.island-label {
+  font-size: 0.7rem; color: #40916c; font-weight: 600; text-transform: uppercase;
+  margin-bottom: 8px; letter-spacing: 0.5px;
+}
+.island-name {
+  font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 800;
+  color: #2E5741;
+}
+
+@media (max-width: 1024px) {
+  .island-highlight-container { flex-direction: column; align-items: stretch; gap: 1.5rem; }
+  .island-highlight-text { flex: auto; text-align: center; }
+}
+@media (max-width: 600px) {
+  .island-cards-wrap { grid-template-columns: repeat(2, 1fr); }
+}
+
+
 /* ===== GOOGLE TRANSLATE OVERRIDES ===== */
 .goog-te-banner-frame.skiptranslate { display: none !important; }
 body { top: 0px !important; }
