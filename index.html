@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamics of Deforestation in Indonesia | Data-Driven Report</title>
+<meta name="description" content="A data-driven analysis of deforestation dynamics in Indonesia under President Prabowo 2024-2025">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<div class="nav-pill">
+<a href="#hero" class="nav-brand">
+<svg viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>
+</a>
+<div class="nav-center" id="navLinks">
+<a href="#hero" class="active">Home</a>
+<a href="#ch1">Introduction</a>
+<a href="#ch2">History</a>
+<a href="#ch3">Analysis</a>
+<a href="#ch3-map">Map</a>
+<a href="#ch4">Conclusion</a>
+</div>
+<button id="langToggle" class="nav-cta" style="cursor:pointer; border:none; outline:none;">🌐 ID / EN</button>
+<button class="nav-toggle" id="navToggle">☰</button>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+<div class="hero-bg-image" style="background-image: url('images/hero-deforestation.png')"></div>
+<div class="hero-overlay"></div>
+<div class="hero-particles"></div>
+<div class="hero-content-wrap">
+<div class="hero-left">
+<div class="hero-badge"><span class="dot"></span> Data-Driven Report</div>
+<h1>Dynamics of<br><span class="hero-accent">Deforestation</span><br>in Indonesia</h1>
+<p class="hero-sub">A data-driven analysis of Indonesia's accelerating forest crisis under the <span style="color: var(--accent-red); font-weight: 700;">Prabowo</span> administration, 2024–2025. Tracing the causal links between policy decisions and ecological consequences.</p>
+
+</div>
+</div>
+</section>
+
+
+<!-- CHAPTER I -->
+<section class="section" id="ch1">
+<div class="chapter-header fade-in"><h2 class="chapter-title">Introduction</h2><div class="chapter-line"></div></div>
+
+<h3 class="sub-title fade-in" id="ch1-bg">Background</h3>
+<p class="content-text fade-in">Indonesia is one of the countries with the richest tropical forests in the world. With a forest area covering approximately <strong>125 million hectares</strong>, Indonesia holds around 10% of the world's tropical forests and is home to thousands of plant and animal species found nowhere else on earth.</p>
+<p class="content-text fade-in">Between 2001 and 2023, Indonesia lost approximately <strong>10.5 million hectares</strong> of primary forest — an area nearly equivalent to the entire landmass of Java. Under President Prabowo Subianto, deforestation in Indonesia reached <strong>433,751 hectares</strong> in 2025, the highest figure in eight years, surging 66% compared to 2024.</p>
+<div class="callout fade-in"><p>433,751 hectares of forest gone in 2025 alone. The highest in eight years. The data has already begun to speak.</p></div>
+
+<div class="prabowo-highlight fade-in">
+  <div class="prabowo-img-wrap">
+    <img src="images/prabowo-sawit.png" alt="President Prabowo with palm oil plantation background" class="highlight-img">
+  </div>
+  <div class="prabowo-text">
+    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--accent-red); margin-bottom: 10px;">The Palm Oil Connection</h4>
+    <p class="content-text" style="margin-bottom: 0; font-size: 0.9rem;">President Prabowo Subianto's administration is heavily intertwined with the palm oil industry. Key figures within his cabinet and political inner circle hold substantial stakes in major palm oil concessions and agribusiness corporations. This convergence of political power and corporate interest has driven policies favoring rapid agricultural expansion over environmental conservation, setting the stage for the dramatic 66% surge in deforestation recorded during his first year in office.</p>
+  </div>
+</div>
+
+<h3 class="sub-title fade-in" id="ch1-obj">Writing Objective</h3>
+<p class="content-text fade-in">To analyze and present Indonesia's deforestation trends from 2001 through 2025, with a primary focus on the Prabowo administration period of 2024-2025, identifying driving forces, correlation with natural disasters, and broader socio-ecological consequences.</p>
+
+<h3 class="sub-title fade-in" id="ch1-prob">Problem Domain</h3>
+<ul class="problem-list fade-in">
+<li>Is the rate of deforestation under Prabowo (2024-2025) worse than under previous administrations?</li>
+<li>Which specific policies have contributed most to forest loss?</li>
+<li>How strong is the correlation between deforestation and the rise of natural disasters in 2025?</li>
+<li>Who are the primary actors and sectors driving forest clearance?</li>
+<li>What are the long-term consequences if current trends continue?</li>
+</ul>
+
+<h3 class="sub-title fade-in" id="ch1-method">Writing Methodology</h3>
+<p class="content-text fade-in">This report relies exclusively on secondary data from credible sources: Auriga Nusantara's STADI 2025 (2021-2025), Global Forest Watch (2001-2024), BNPB for disaster data, KPA's CATAHU 2025 for agrarian conflicts, and peer-reviewed scientific analysis from UGM researchers.</p>
+</section>
+
+<!-- CHAPTER II -->
+<section class="section section-wide" id="ch2">
+<div class="chapter-header fade-in"><h2 class="chapter-title">Basic Theory</h2><div class="chapter-line"></div></div>
+
+<h3 class="sub-title fade-in" id="ch2-forests">Indonesia and Its Forests</h3>
+<p class="content-text fade-in">Indonesia's tropical forests stretch from Sumatra, Kalimantan, Sulawesi to Papua. The forest estate encompasses approximately <strong>125 million hectares</strong>, placing it third in the world for tropical forest coverage. Over the past half-century, more than <strong>74 million hectares</strong> of rainforest have been lost — an area nearly twice the size of Japan.</p>
+<div class="data-grid fade-in">
+<div class="data-card"><div class="value">125M ha</div><div class="label">Total Forest Estate</div></div>
+<div class="data-card"><div class="value">10%</div><div class="label">World's Tropical Forests</div></div>
+<div class="data-card"><div class="value">3rd</div><div class="label">Global Ranking</div></div>
+<div class="data-card"><div class="value red">74M ha</div><div class="label">Lost in 50 Years</div></div>
+</div>
+
+<h3 class="sub-title fade-in" id="ch2-trend">Two Decades of Loss: Reading the Trend (2001-2024)</h3>
+<p class="content-text fade-in">From 2001 to 2023, Indonesia lost approximately <strong>10.5 million hectares</strong> of primary forest. Deforestation peaked in 2016 at approximately 930,000 hectares. After 2016, the trend improved substantially — by 2021-2022, Indonesia recorded its lowest rate since 1990 at just 104,000 hectares. That positive trajectory collapsed sharply in 2025.</p>
+<div class="chart-card fade-in">
+<h3>Annual Deforestation Rate, Indonesia, 2001-2025</h3>
+<p class="chart-source">Source: GFW (2001-2024) + Auriga Nusantara (2021-2025)</p>
+<div class="chart-container" style="height:350px"><canvas id="chartLine"></canvas></div>
+</div>
+
+<h3 class="sub-title fade-in" id="ch2-admin">Deforestation Across Administrations (1998-2024)</h3>
+<p class="content-text fade-in"><strong>Reform Era (1998-2004):</strong> Post-reform decentralization saw forest cover decline from ~106M to below 100M hectares — a loss of >6M hectares at ~1.4-2.4M ha/year.</p>
+<p class="content-text fade-in"><strong>SBY Era (2004-2014):</strong> Despite the 2011 moratorium with Norway, deforestation peaked at ~840,000 ha in 2012 — briefly surpassing Brazil. Moratorium zones saw a 45% drop by 2018.</p>
+<p class="content-text fade-in"><strong>Jokowi Era (2014-2024):</strong> The most significant reduction period. Primary forest loss declined from ~930,000 ha (2016) to just 104,000 ha (2021-2022). However, by 2024 it had risen to 261,575 ha.</p>
+
+
+<h3 class="sub-title fade-in" id="ch2-roots">Structural Roots: Why Deforestation Keeps Coming Back</h3>
+<p class="content-text fade-in">Behind the numbers lies a deeper architecture: <strong>commodity dependency</strong> (oil palm = 23% of forest loss 2001-2016), <strong>overlapping permits</strong> (>3M ha allocated in violation of forestry law), <strong>corruption and regulatory capture</strong>, and <strong>El Niño as an accelerant</strong>.</p>
+
+</section>
+
+<!-- CHAPTER III -->
+<section class="section section-wide" id="ch3">
+<div class="chapter-header fade-in"><h2 class="chapter-title">Problem Analysis</h2><div class="chapter-line"></div></div>
+
+<h3 class="sub-title fade-in" id="ch3-inherit">An Inheritance Received, a Direction Chosen</h3>
+<p class="content-text fade-in">When Prabowo took office in October 2024, he inherited a forest sector on an improving trajectory. In 2024, deforestation was 261,575 hectares. In less than a year, that trajectory reversed: 2025 deforestation surged to <strong>433,751 hectares — a 66% increase</strong>. Auriga Chairman Timer Manurung was unambiguous: <em>it is planned deforestation, carried out through the deliberate policies of the state.</em></p>
+
+
+<h3 class="sub-title fade-in" id="ch3-policy">The Policy Engine: What Is Driving the Clearance</h3>
+<p class="content-text fade-in">Three major policy decisions are directly linked to the 2025 surge:</p>
+<div class="data-grid fade-in">
+<div class="data-card"><div class="value red">20.6M ha</div><div class="label">Forest estate allocated for food/energy (Dec 2024)</div></div>
+<div class="data-card"><div class="value red">78,123 ha</div><div class="label">Deforested in food program zones (18%)</div></div>
+<div class="data-card"><div class="value red">192,761 ha</div><div class="label">Inside licensed concessions (44%)</div></div>
+<div class="data-card"><div class="value red">486</div><div class="label">Forestry permit holders involved</div></div>
+</div>
+
+
+<h3 class="sub-title fade-in" id="ch3-map">Choropleth Map: Deforestation by Province (2025)</h3>
+<p class="content-text fade-in">The interactive map below shows the spatial distribution of deforestation across Indonesia's provinces in 2025. Hover over each marker to see detailed data. <strong>Red pulsing rings</strong> indicate provinces hit by the November 2025 Sumatra disaster.</p>
+<div class="chart-card fade-in" style="padding:0; overflow:hidden;">
+<div style="padding:1.5rem 2rem 0.5rem;">
+<h3>Choropleth Map: Deforestation by Province, 2025</h3>
+<p class="chart-source">Source: Auriga Nusantara STADI 2025 / Simontini platform</p>
+</div>
+<div id="indonesiaMap" style="height:520px; width:100%;"></div>
+<div class="map-summary-footer">
+  <h4>By Island (2025)</h4>
+  <div class="summary-grid">
+    <div class="info-item"><span>Kalimantan</span><strong>158,283 ha</strong></div>
+    <div class="info-item"><span>Sumatra</span><strong>144,150 ha</strong></div>
+    <div class="info-item"><span>Papua</span><strong>77,678 ha</strong></div>
+    <div class="info-item"><span>Sulawesi</span><strong>39,685 ha</strong></div>
+    <div class="info-item"><span>Maluku</span><strong>7,527 ha</strong></div>
+    <div class="info-item"><span>Bali & NT</span><strong>4,209 ha</strong></div>
+    <div class="info-item"><span>Java</span><strong>2,221 ha</strong></div>
+    <div class="info-item total"><span style="color:var(--accent-red)">TOTAL</span><span style="color:var(--accent-red)">433,751 ha</span></div>
+  </div>
+</div>
+</div>
+
+<h3 class="sub-title fade-in" id="ch3-where">Where the Forests Are Gone (2025)</h3>
+<p class="content-text fade-in">Every major island experienced expanding deforestation. Kalimantan led with 158,283 ha. Papua surged to 77,678 ha (+348%). Java saw a 440% increase. Deforestation was recorded across <strong>383 of 514 regencies (74%)</strong>, with 71% occurring inside the state forest estate.</p>
+
+
+<h3 class="sub-title fade-in" id="ch3-datasets">A Tale of Two Datasets</h3>
+<p class="content-text fade-in">The Minister of Forestry claimed deforestation declined to 166,450 ha through September 2025. Auriga recorded 433,751 ha for the full year. The discrepancy reflects different definitions: the government uses a narrower definition, while Auriga covers all natural forest loss verified through field visits across <strong>49,321 hectares in 38 villages</strong>.</p>
+<div class="callout-green callout fade-in"><p>When the state is simultaneously the primary driver of deforestation and the authority measuring it, independent monitoring is not a convenience — it is a safeguard.</p></div>
+
+<h3 class="sub-title fade-in" id="ch3-bio">Biodiversity in Crisis (2025)</h3>
+<div class="data-grid fade-in">
+<div class="data-card"><div class="value red">78,113 ha</div><div class="label">Sumatran Tiger habitat cleared</div></div>
+<div class="data-card"><div class="value red">67,019 ha</div><div class="label">Bornean Orangutan habitat destroyed</div></div>
+<div class="data-card"><div class="value red">6,362 ha</div><div class="label">Kerinci Seblat NP forest lost</div></div>
+<div class="data-card"><div class="value red">28M ha</div><div class="label">Papua intact forest remaining</div></div>
+</div>
+
+<h3 class="sub-title fade-in" id="ch3-sumatra">Sumatra, November 2025: When the Data Became Real</h3>
+<div class="image-gallery fade-in">
+<div class="gallery-item">
+<img src="images/sumatra-deforestation.png" alt="Devastated forest after illegal logging in Sumatra" loading="lazy">
+<div class="gallery-caption">Deforestation aftermath in Sumatra's upper watershed — machine-cut timber found in floodwaters</div>
+</div>
+<div class="gallery-item">
+<img src="images/sumatra-disaster.png" alt="Flash flood and landslide disaster in Sumatra November 2025" loading="lazy">
+<div class="gallery-caption">November 2025: Flash floods devastate communities across three provinces</div>
+</div>
+</div>
+<p class="content-text fade-in">Flash floods and landslides struck Aceh, North Sumatra, and West Sumatra. At least <strong>1,204 people were killed</strong> and 140 remained missing — the deadliest disaster since 2018. More than 3.3 million people were affected and economic losses exceeded <strong>Rp 75 trillion</strong>.</p>
+<div class="callout fade-in"><p>More than 1,200 lives. 3.3 million people displaced. Rp 75 trillion in losses. All from a single rainy season, on a single island.</p></div>
+
+<h3 class="sub-title fade-in">Not an Act of God. An Act of Policy.</h3>
+<p class="content-text fade-in">The three provinces struck hardest are the same three that recorded the most dramatic deforestation surges: <strong>Aceh +426%, North Sumatra +281%, West Sumatra +1,034%</strong>. This is not coincidence. This is a pattern.</p>
+
+
+<h3 class="sub-title fade-in" id="ch3-costs">The Costs That Never Appear on the Balance Sheet</h3>
+<p class="content-text fade-in">CELIOS projected losses at Rp 68.67 trillion. Other estimates push above Rp 200 trillion. In bitter irony, the BNPB budget was cut from Rp 4.92 trillion (2024) to just Rp 2.01 trillion — a <strong>>50% reduction</strong> in the very year of the worst disaster toll.</p>
+
+
+<h3 class="sub-title fade-in">Who Actually Pays</h3>
+<p class="content-text fade-in">KPA recorded <strong>341 agrarian conflicts</strong> in 2025 — the highest in five years. Approximately 914,500 hectares and 123,000+ families across 428 villages were affected. Military violence cases surged 89%, with 736 victims of violence and criminalization.</p>
+
+
+<h3 class="sub-title fade-in" id="ch3-compare">Two Forests, Two Choices (2020-2025)</h3>
+<p class="content-text fade-in">Under President Lula, Brazil reduced Amazon deforestation to its lowest in eleven years. Meanwhile Indonesia surged 66%. At this trajectory, Indonesia could become the <strong>world's top tropical deforester</strong>, overtaking Brazil.</p>
+<div class="chart-card fade-in">
+<h3>Comparative Trend: Indonesia vs. Brazil, 2020-2025</h3>
+<p class="chart-source">Source: GFW & Auriga Nusantara</p>
+<div class="chart-container" style="height:320px"><canvas id="chartCompare"></canvas></div>
+</div>
+
+<h3 class="sub-title fade-in">The Trajectory Ahead</h3>
+<p class="content-text fade-in">Papua — with ~28 million hectares of intact forest — will become the national epicenter of deforestation within <strong>2 to 3 years</strong>. Papua already recorded a 348% increase in 2025. When Papua is gone, no other major Indonesian island retains primary forest in significant quantity.</p>
+</section>
+
+<!-- CHAPTER IV -->
+<section class="section" id="ch4">
+<div class="chapter-header fade-in"><h2 class="chapter-title">Conclusion & Suggestion</h2><div class="chapter-line"></div></div>
+
+<h3 class="sub-title fade-in" id="ch4-conclusion">Five Key Findings</h3>
+<div class="findings-grid fade-in">
+<div class="finding-card"><span class="finding-num">01</span><h4>Dangerous Acceleration</h4><p>Deforestation surged 66% in a single year — from 261,575 ha to 433,751 ha. Progress built across a decade is unraveling.</p></div>
+<div class="finding-card"><span class="finding-num">02</span><h4>Planned Deforestation</h4><p>20.6M ha allocated for food estate, concession expansion, and PSN — these are conscious state policy decisions.</p></div>
+<div class="finding-card"><span class="finding-num">03</span><h4>Deforestation = Disaster</h4><p>The three provinces with highest deforestation surges were struck by Indonesia's deadliest disaster since 2018: 1,204 deaths.</p></div>
+<div class="finding-card"><span class="finding-num">04</span><h4>Unequal Burden</h4><p>123,612 families caught in agrarian conflicts — never at the negotiating table, yet absorbing all consequences.</p></div>
+<div class="finding-card"><span class="finding-num">05</span><h4>Time Is Running Short</h4><p>Papua, the last primary forest frontier (~28M ha), is projected to become deforestation epicenter within 2-3 years.</p></div>
+</div>
+
+<h3 class="sub-title fade-in" id="ch4-suggestion">Suggestions</h3>
+<ul class="problem-list fade-in">
+<li><strong>Halt new forest clearance immediately.</strong> Suspend all new permits pending a comprehensive audit. Strengthen the 2019 moratorium.</li>
+<li><strong>Audit the concession permitting system.</strong> 44% of 2025 deforestation occurred inside licensed areas. A full independent audit is overdue.</li>
+<li><strong>End criminalization of indigenous peoples.</strong> The 89% increase in military violence is not governance — it is a warning sign.</li>
+<li><strong>Open up forestry data.</strong> The gap between government figures (166,450 ha) and independent monitoring (433,751 ha) must be corrected.</li>
+<li><strong>Rebuild the development calculus.</strong> Rp 75 trillion lost from one disaster season is the definitive argument against extraction-based development.</li>
+</ul>
+<div class="callout fade-in"><p>2025 has spoken: 433,751 hectares lost, 1,204 lives taken, 3.3 million displaced, Rp 75 trillion gone. The question is no longer whether change is necessary. The question is how much more must be lost before the choice is finally made.</p></div>
+</section>
+
+<!-- BIBLIOGRAPHY -->
+<section class="section" id="bibliography">
+<div class="chapter-header fade-in"><h2 class="chapter-title">Sources</h2><div class="chapter-line"></div></div>
+<div class="fade-in">
+<div class="bib-item"><span class="bib-source">Auriga Nusantara — STADI 2025 (March 31, 2026)</span><p class="bib-desc">Primary source for 2021-2025 deforestation rates, island breakdown, concession types</p></div>
+<div class="bib-item"><span class="bib-source">Global Forest Watch / University of Maryland GLAD Lab</span><p class="bib-desc">Historical 2001-2024 tree cover loss and primary forest loss data</p></div>
+<div class="bib-item"><span class="bib-source">BNPB (National Disaster Management Agency)</span><p class="bib-desc">2025 disaster count, casualty figures, flood/landslide impact, budget data</p></div>
+<div class="bib-item"><span class="bib-source">KPA — CATAHU 2025 (January 15, 2026)</span><p class="bib-desc">Annual agrarian conflict data, affected families, violence/criminalization cases</p></div>
+<div class="bib-item"><span class="bib-source">CELIOS (Center of Economic and Law Studies)</span><p class="bib-desc">Economic loss projection for November 2025 Sumatra ecological disaster</p></div>
+<div class="bib-item"><span class="bib-source">UGM — Dr. Hatma Suryatmojo (December 2025)</span><p class="bib-desc">Watershed degradation and hydrometeorological disaster dynamics</p></div>
+<div class="bib-item"><span class="bib-source">Forest Watch Indonesia (FWI)</span><p class="bib-desc">Natural forest cover data 2000-2017, deforestation rate analysis</p></div>
+<div class="bib-item"><span class="bib-source">World Resources Institute (WRI)</span><p class="bib-desc">Moratorium effectiveness, international comparisons</p></div>
+<div class="bib-item"><span class="bib-source">Mongabay Indonesia</span><p class="bib-desc">Investigative reporting on deforestation-disaster causal links</p></div>
+</div>
+</section>
+
+<!-- APPENDIX -->
+<section class="section section-wide" id="appendix">
+<div class="chapter-header fade-in"><h2 class="chapter-title">Data Inventory</h2><div class="chapter-line"></div></div>
+
+<h3 class="sub-title fade-in">Table A.4 — 2025 Breakdown by Island</h3>
+<div class="table-wrapper fade-in"><table class="data-table">
+<thead><tr><th>Island</th><th>Hectares</th><th>Change vs 2024</th></tr></thead>
+<tbody>
+<tr><td>Kalimantan</td><td>158,283</td><td>Leading since 2013</td></tr>
+<tr><td>Sumatra</td><td>144,150</td><td>—</td></tr>
+<tr><td>Papua</td><td>77,678</td><td>+348%</td></tr>
+<tr><td>Sulawesi</td><td>39,685</td><td>—</td></tr>
+<tr><td>Maluku</td><td>7,527</td><td>—</td></tr>
+<tr><td>Bali & Nusa Tenggara</td><td>4,209</td><td>—</td></tr>
+<tr><td>Java</td><td>2,221</td><td>+440%</td></tr>
+</tbody></table></div>
+
+<h3 class="sub-title fade-in">Table A.8 — November 2025 Sumatra Disaster</h3>
+<div class="table-wrapper fade-in"><table class="data-table">
+<thead><tr><th>Metric</th><th>Value</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td>Total deaths</td><td>At least 1,204</td><td>BNPB</td></tr>
+<tr><td>Missing persons</td><td>140</td><td>BNPB</td></tr>
+<tr><td>Total affected</td><td>>3.3 million</td><td>BNPB</td></tr>
+<tr><td>Displaced persons</td><td>894,101</td><td>BNPB</td></tr>
+<tr><td>Bridges destroyed</td><td>498</td><td>BNPB</td></tr>
+<tr><td>Economic loss (CELIOS)</td><td>Rp 68.67 trillion</td><td>CELIOS</td></tr>
+<tr><td>Economic loss (est.)</td><td>Up to Rp 200 trillion</td><td>KBR.id</td></tr>
+<tr><td>BNPB budget 2025</td><td>Rp 2.01 trillion (-50%)</td><td>KBR.id</td></tr>
+<tr><td>Total disasters 2025</td><td>3,176 events</td><td>BNPB</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>Dynamics of Deforestation in Indonesia — A Data-Driven Report | April 2026</p>
+<p style="margin-top:8px">Data sourced from <a href="https://auriga.or.id" target="_blank">Auriga Nusantara</a>, <a href="https://globalforestwatch.org" target="_blank">Global Forest Watch</a>, BNPB, KPA</p>
+</footer>
+
+<!-- GOOGLE TRANSLATE -->
+<div id="google_translate_element" style="display:none;"></div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,id', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal">
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modalImg">
+  <div id="modalCaption"></div>
+</div>
+
+<script src="charts.js"></script>
+<script src="map.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
