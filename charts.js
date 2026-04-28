@@ -142,7 +142,7 @@ function createBarChartEra() {
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Reform Era\n(1998-2004)', 'SBY Era\n(2004-2014)', 'Jokowi Era\n(2014-2024)', 'Prabowo\n(2024-2025)'],
+      labels: ['Reform Era\n(2001-2004)', 'SBY Era\n(2004-2014)', 'Jokowi Era\n(2014-2024)', 'Prabowo Era\n(2024-2025)'],
       datasets: [{
         label: 'Avg. Annual Deforestation (thousand ha)',
         data: [1400, 650, 420, 433.751],
